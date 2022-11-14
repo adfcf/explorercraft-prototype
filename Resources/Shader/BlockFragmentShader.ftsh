@@ -1,0 +1,22 @@
+#version 330 core
+
+out vec4 fragmentColor;
+
+flat in vec4 textures;
+flat in float face;
+
+in vec2 textureCoordinates;
+in vec3 normals;
+
+uniform sampler2DArray blockTextures;
+
+void main() {
+
+	vec4 texel = texture(blockTextures, vec3(textureCoordinates.st, textures[int(face)]));
+	if (texel.a < 0.5f) {
+		discard;
+	}
+
+	fragmentColor = texel;
+
+}
