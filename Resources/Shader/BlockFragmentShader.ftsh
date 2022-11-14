@@ -6,9 +6,14 @@ flat in vec4 textures;
 flat in float face;
 
 in vec2 textureCoordinates;
-in vec3 normals;
+in vec3 normal;
 
 uniform sampler2DArray blockTextures;
+
+// LIGHTING
+
+uniform vec3 ambientLight;
+uniform vec3 universalDirection;
 
 void main() {
 
@@ -17,6 +22,13 @@ void main() {
 		discard;
 	}
 
-	fragmentColor = texel;
+	// DIFFUSE LIGHTING
+	// Unidirectional light
+	float intensity = dot(normal, universalDirection);
+	vec3 unidirectionalLight = vec3(0.75f, 0.75f, 0.75f) * intensity;
+
+	vec3 light = ambientLight + unidirectionalLight;
+
+	fragmentColor = vec4(light.rgb, 1.0f) * texel;
 
 }

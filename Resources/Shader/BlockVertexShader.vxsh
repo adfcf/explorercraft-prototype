@@ -12,14 +12,14 @@ uniform mat4 view;
 uniform mat4 projection;
 
 out vec2 textureCoordinates;
-out vec3 normals;
+out vec3 normal;
 
 flat out vec4 textures;
 flat out float face;
 
 void main() {
 	gl_Position = projection * view * (vec4(instanceTranslation.xyz, 0.0f) + vec4(vertexPosition.xyz, 1.0f));
-	normals = vertexNormals;
+	normal = vertexNormals;
 	textureCoordinates = vertexTextureCoordinates;
 	textures = instanceTextures;
 	face = vertexFace;
